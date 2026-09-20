@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Business Analytics Dashboard</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="charts.css">
+</head>
+
+
+<body>
+
+    <div class="dashboard">
+
+
+        <!-- =========================
+             HEADER
+        ========================= -->
+
+        <div class="header">
+
+            <h1>Business Analytics Dashboard</h1>
+
+            <p>
+                Revenue, expenses and profit analysis
+            </p>
+
+        </div>
+
+
+        <!-- CLASSIC SEPARATOR -->
+
+        <hr class="classic-hr">
+
+
+        <!-- =========================
+             CHARTS
+        ========================= -->
+
+        <div class="chart-container">
+
+
+            <!-- =========================
+                 REVENUE / EXPENSE / PROFIT
+            ========================= -->
+
+            <div class="chart-card large-chart">
+
+                <h2>
+                    Revenue vs Expenses vs Profit
+                </h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="myChart1"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SALES
+            ========================= -->
+
+            <div class="chart-card">
+
+                <h2>
+                    Monthly Sales
+                </h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="myChart2"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PROFIT DISTRIBUTION
+            ========================= -->
+
+            <div class="chart-card">
+
+                <h2>
+                    Profit Distribution
+                </h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="myChart3"></canvas>
+
+                </div>
+
+            </div>
+
+            <div class="chart-card">
+
+                <h2>
+                    Profit Distribution
+                </h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="myChart4"></canvas>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+
+        /* =========================
+           CHART.JS FONT
+        ========================= */
+
+        Chart.defaults.font.family = 'Martel Sans';
+
+        Chart.defaults.font.size = 15;
+
+        Chart.defaults.color = '#6B7280';
+
+
+        /* =========================
+           CANVAS
+        ========================= */
+
+        const ctx1 =
+            document.getElementById('myChart1');
+
+        const ctx2 =
+            document.getElementById('myChart2');
+
+        const ctx3 =
+            document.getElementById('myChart3');
+
+        const ctx4 =
+            document.getElementById('myChart4');
+
+
+        /* =========================
+           YOUR ORIGINAL DATA
+        ========================= */
+
+        const months = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun'
+        ];
+
+
+        const revenue = [
+            50000,
+            60000,
+            55000,
+            70000,
+            75000,
+            80000
+        ];
+
+
+        const expenses = [
+            30000,
+            35000,
+            32000,
+            40000,
+            42000,
+            45000
+        ];
+
+
+        const profit = [
+            20000,
+            25000,
+            23000,
+            30000,
+            33000,
+            35000
+        ];
+        const countries = [
+            "Australia",
+            "Canada",
+            "Germany",
+            "India",
+            "UK",
+            "USA"
+        ];
+
+        const regions = {
+            Central: [0, 2611, 2095, 3271, 0, 6046],
+            East: [10603, 13335, 8091, 4077, 1146, 5611],
+            Midlands: [0, 0, 0, 0, 0, 0],
+            North: [0, 0, 4352, 11174, 4602, 0],
+            South: [5947, 0, 8397, 8108, 991, 8618],
+            West: [1846, 5011, 2486, 5037, 2761, 18619]
+        };
+
+
+        /* =========================
+           1. LINE CHART
+        ========================= */
+
+        new Chart(ctx1, {
+
+            type: 'line',
+
+            data: {
+
+                labels: months,
+
+                datasets: [
+
+                    /* REVENUE */
+
+                    {
+                        label: 'Revenue',
+
+                        data: revenue,
+
+                        borderColor: '#1F4E78',
+
+                        backgroundColor:
+                            'rgba(31, 78, 120, 0.08)',
+
+                        borderWidth: 2,
+
+                        tension: 0.3,
+
+                        fill: false,
+
+                        pointRadius: 4,
+
+                        pointHoverRadius: 6
+                    },
+
+
+                    /* EXPENSES */
+
+                    {
+                        label: 'Expenses',
+
+                        data: expenses,
+
+                        borderColor: '#6B7280',
+
+                        backgroundColor:
+                            'rgba(107, 114, 128, 0.08)',
+
+                        borderWidth: 2,
+
+                        tension: 0.3,
+
+                        fill: false,
+
+                        pointRadius: 4,
+
+                        pointHoverRadius: 6
+                    },
+
+
+                    /* PROFIT */
+
+                    {
+                        label: 'Profit',
+
+                        data: profit,
+
+                        borderColor: '#2F7D6D',
+
+                        backgroundColor:
+                            'rgba(47, 125, 109, 0.08)',
+
+                        borderWidth: 2,
+
+                        tension: 0.3,
+
+                        fill: false,
+
+                        pointRadius: 4,
+
+                        pointHoverRadius: 6
+                    }
+
+                ]
+
+            },
+
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+
+                plugins: {
+
+                    legend: {
+
+                        position: 'top',
+
+                        labels: {
+
+                            usePointStyle: true,
+
+                            padding: 20,
+
+                            font: {
+                                family: 'Martel Sans',
+                                size: 12
+                            }
+
+                        }
+
+                    },
+
+                    tooltip: {
+
+                        titleFont: {
+                            family: 'Martel Sans'
+                        },
+
+                        bodyFont: {
+                            family: 'Martel Sans'
+                        },
+
+                        footerFont: {
+                            family: 'Martel Sans'
+                        }
+
+                    }
+
+                },
+
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        grid: {
+
+                            color: '#E5E7EB'
+                        },
+
+                        ticks: {
+
+                            color: '#6B7280',
+
+                            font: {
+                                family: 'Martel Sans'
+                            }
+
+                        }
+
+                    },
+
+                    x: {
+
+                        grid: {
+
+                            display: false
+                        },
+
+                        ticks: {
+
+                            color: '#6B7280',
+
+                            font: {
+                                family: 'Martel Sans'
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+
+        /* =========================
+           2. BAR CHART
+        ========================= */
+
+        new Chart(ctx2, {
+
+            type: 'bar',
+
+            data: {
+
+                labels: months,
+
+                datasets: [
+
+                    {
+
+                        label: 'Sales',
+
+                        data: revenue,
+
+                        backgroundColor:
+                            'rgba(31, 78, 120, 0.85)',
+
+                        borderColor:
+                            '#1F4E78',
+
+                        borderWidth: 1,
+
+                        borderRadius: 5,
+
+                        borderSkipped: false
+
+                    }
+
+                ]
+
+            },
+
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+
+                plugins: {
+
+                    legend: {
+
+                        position: 'top',
+
+                        labels: {
+
+                            usePointStyle: true,
+
+                            padding: 20,
+
+                            font: {
+                                family: 'Martel Sans',
+                                size: 12
+                            }
+
+                        }
+
+                    },
+
+                    tooltip: {
+
+                        titleFont: {
+                            family: 'Martel Sans'
+                        },
+
+                        bodyFont: {
+                            family: 'Martel Sans'
+                        },
+
+                        footerFont: {
+                            family: 'Martel Sans'
+                        }
+
+                    }
+
+                },
+
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        grid: {
+
+                            color: '#E5E7EB'
+                        },
+
+                        ticks: {
+
+                            color: '#6B7280',
+
+                            font: {
+                                family: 'Martel Sans'
+                            }
+
+                        }
+
+                    },
+
+                    x: {
+
+                        grid: {
+
+                            display: false
+                        },
+
+                        ticks: {
+
+                            color: '#6B7280',
+
+                            font: {
+                                family: 'Martel Sans'
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+
+        /* =========================
+           3. PIE CHART
+        ========================= */
+
+        new Chart(ctx3, {
+
+            type: 'pie',
+
+            data: {
+
+                labels: [
+
+                    'Reinvestment 40%',
+
+                    'Salaries 35%',
+
+                    'Miscellaneous 25%'
+
+                ],
+
+
+                datasets: [
+
+                    {
+
+                        data: [
+                            40,
+                            35,
+                            25
+                        ],
+
+
+                        backgroundColor: [
+
+                            '#1F4E78',
+
+                            '#2F7D6D',
+
+                            '#C9A227'
+
+                        ],
+
+
+                        borderColor: '#FFFFFF',
+
+                        borderWidth: 3
+
+                    }
+
+                ]
+
+            },
+
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+
+                plugins: {
+
+                    legend: {
+
+                        position: 'bottom',
+
+                        labels: {
+
+                            usePointStyle: true,
+
+                            padding: 20,
+
+                            font: {
+                                family: 'Martel Sans',
+                                size: 12
+                            }
+
+                        }
+
+                    },
+
+                    tooltip: {
+
+                        titleFont: {
+                            family: 'Martel Sans'
+                        },
+
+                        bodyFont: {
+                            family: 'Martel Sans'
+                        },
+
+                        footerFont: {
+                            family: 'Martel Sans'
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        new Chart(ctx4, {
+            type: "bar",
+
+            data: {
+                labels: countries,
+
+                datasets: [
+                    {
+                        label: "Central",
+                        data: regions.Central
+                    },
+                    {
+                        label: "East",
+                        data: regions.East
+                    },
+                    {
+                        label: "Midlands",
+                        data: regions.Midlands
+                    },
+                    {
+                        label: "North",
+                        data: regions.North
+                    },
+                    {
+                        label: "South",
+                        data: regions.South
+                    },
+                    {
+                        label: "West",
+                        data: regions.West
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+    </script>
+
+</body>
+
+</html>
